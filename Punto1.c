@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 //Punto 1
 int verifica(char *cadena){
@@ -7,10 +8,8 @@ int verifica(char *cadena){
 	{
 		if(!(cadena[i]=='-'||
 			 cadena[i]=='#'||
-             cadena[i]>='a'||
-             cadena[i]<='f'||
-             cadena[i]>='A'||
-             cadena[i]<='F'||
+             cadena[i]>='a' && cadena[i]<='f'||
+             cadena[i]>='A' && cadena[i]<='F'||
 			 cadena[i]=='o'||
 			 cadena[i]=='O'||
 			 cadena[i]=='x'||
