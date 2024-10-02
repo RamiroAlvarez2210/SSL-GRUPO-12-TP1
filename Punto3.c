@@ -1,22 +1,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-
-int verifica(char *cadena){
-    int i;
-	for(i=0;cadena[i];i++)
-	{
-		if(!(cadena[i] =='+'||
-			 cadena[i] =='-'||
-             cadena[i] =='*'||
-             cadena[i] == '/'||
-			 isdigit(cadena[i])))
-		 {
-		 	return 0;
-		 }
-	}
-	return 1;
-}
 int columna(int c){
     if(c =='+'){
 		return 10;
@@ -36,13 +20,15 @@ int columna(int c){
 	}
 }
 int esPalabra(char *cadena){
-    static int tt[6][13] = {
+    static int tt[7][14] = {
       //    0 1 2 3 4 5 6 7 8 9 + - * /
-/*A|0 */   {1,1,1,1,1,1,1,1,1,1,3,3,4,4},
-/*B|1 */   {1,1,1,1,1,1,1,1,1,1,2,2,2,2},
-/*C|2 */   {0,0,0,0,0,0,0,0,0,0,3,3,4,4},
-/*D|3 */   {1,1,1,1,1,1,1,1,1,1,4,4,4,4},
-/*E|4 */   {4,4,4,4,4,4,4,4,4,4,4,4,4,4},
+/*A|0 */   {1,1,1,1,1,1,1,1,1,1,3,3,6,6},
+/*B+|1 */  {1,1,1,1,1,1,1,1,1,1,2,2,2,4},
+/*C|2 */   {1,1,1,1,1,1,1,1,1,1,3,3,6,6},
+/*D|3 */   {1,1,1,1,1,1,1,1,1,1,6,6,6,6},
+/*E|4 */   {5,1,1,1,1,1,1,1,1,1,5,5,6,6},
+/*F|5 */   {5,1,1,1,1,1,1,1,1,1,6,6,6,6},
+/*G|6 */   {6,6,6,6,6,6,6,6,6,6,6,6,6,6},
     };
     int estado = 0;
     int i=0;
@@ -71,16 +57,17 @@ int esCaracter(char c){
     }
 }
 
-int validacion(char expr[100+1]){
-    int i = 0;
-    while(expr[i] != '\0'){
-        if(esCaracter(expr[i]) || isdigit(expr[i])){
-            return 1;
-        }else{
-            i++;
-        }
+int verificacion(char expr[100+1]){
+    int i;
+    for(i=0;expr[i];i++)
+    {
+        if(!(esCaracter(expr[i])||
+            isdigit(expr[i])))
+            {
+                return 0;
+            }
     }
-    return 0;
+    return 1;
 }
 
 int deIntaChar(char letra){
@@ -91,13 +78,10 @@ float evaluar_expresion(char expr[100+1]){//ver si no es de otro tipo
 
     float numeros[100+1];//ver si no es de otro tipo
     char operadores[100+1];
-
-if(validacion(expr)){
     int i = 0;
     int puntero_numeros = 0;
     float acumulador_de_numero = 0;
     int puntero_operadores = 0;
-
 
     for(i = 0; expr[i] != '\0'; i++) {//recorro toda la expresion hasta encontrar el simbolo de finalizacion
 
@@ -287,7 +271,6 @@ if(validacion(expr)){
     }
 
 }
-}
 
 return numeros[0];
 }
@@ -296,6 +279,13 @@ int main() {
     char expresion[100+1];
     printf("Ingrese una expresion: \n");
     scanf("%s",&expresion);
+
+    if(!verificacion(expresion))
+    {
+        printf("Hay caracteres que no pertenecen al alfabeto");
+        return 0;
+    }
+
     if(esPalabra(expresion)){
         printf("La expresion es valida\n");
         printf("Resultado: %f\n", evaluar_expresion(expresion));
