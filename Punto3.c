@@ -120,6 +120,15 @@ if(validacion(expr)){
             numeros[puntero_numeros++] = acumulador_de_numero; // Agrega el número a la pila y luego aumenta en 1 el puntero
        }
 
+            if(i == 0 && expr[i]=='+'){
+            i++;
+            while(isdigit(expr[i]) && expr[i] != '\0') {
+                  acumulador_de_numero = acumulador_de_numero * 10 + (deIntaChar(expr[i]));
+                   i++;
+              }
+               numeros[puntero_numeros++] = acumulador_de_numero; // Agrega el número a la pila y luego aumenta en 1 el puntero
+          }
+
        if(expr[i]=='*'){
             i++;
             
@@ -142,7 +151,16 @@ if(validacion(expr)){
             }
             i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
                numeros[puntero_numeros-1] = numeros[puntero_numeros-1] * acumulador_de_numero;
-        }}
+        }else{if(expr[i]=='+'){
+                i++;
+                acumulador_de_numero = 0;
+                while(isdigit(expr[i]) && expr[i] != '\0') {
+                  acumulador_de_numero = acumulador_de_numero * 10 + (deIntaChar(expr[i]));
+                   i++;
+              }
+               i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
+               numeros[puntero_numeros-1] = numeros[puntero_numeros-1] * acumulador_de_numero;
+            }}}
         }
 
         if(expr[i]=='/'){
@@ -167,7 +185,16 @@ if(validacion(expr)){
             }
             i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
                numeros[puntero_numeros-1] = numeros[puntero_numeros-1] / acumulador_de_numero;
-        }}
+        } else{if(expr[i]=='+'){
+                i++;
+                acumulador_de_numero = 0;
+                while(isdigit(expr[i]) && expr[i] != '\0') {
+                  acumulador_de_numero = acumulador_de_numero * 10 + (deIntaChar(expr[i]));
+                   i++;
+              }
+               i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
+               numeros[puntero_numeros-1] = (numeros[puntero_numeros-1] / acumulador_de_numero);
+            }}}
         }
 
         if(expr[i]=='+'){
@@ -181,7 +208,7 @@ if(validacion(expr)){
                    i++;
               }
                i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
-               numeros[puntero_numeros-1] = numeros[puntero_numeros-1] * acumulador_de_numero * (-1);
+               numeros[puntero_numeros++] = acumulador_de_numero * (-1);
             } else{
              if(isdigit(expr[i])) {
             acumulador_de_numero = 0;//sirve para almacenar porque los numeros son de varias cifras y los voy a ir guardando en una pila para luego aplicarles los operadores
@@ -192,7 +219,16 @@ if(validacion(expr)){
             }
             i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
                numeros[puntero_numeros++] = acumulador_de_numero;
-        }}
+        } else{if(expr[i]=='+'){
+                i++;
+                acumulador_de_numero = 0;
+                while(isdigit(expr[i]) && expr[i] != '\0') {
+                  acumulador_de_numero = acumulador_de_numero * 10 + (deIntaChar(expr[i]));
+                   i++;
+              }
+               i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
+               numeros[puntero_numeros++] =acumulador_de_numero;
+            }}}
 
         operadores[puntero_operadores++]='+';
         }
@@ -208,7 +244,7 @@ if(validacion(expr)){
                    i++;
               }
                i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
-               numeros[puntero_numeros-1] = numeros[puntero_numeros-1] * acumulador_de_numero * (-1);
+               numeros[puntero_numeros++] = acumulador_de_numero * (-1);
             } else{
              if(isdigit(expr[i])) {
             acumulador_de_numero = 0;//sirve para almacenar porque los numeros son de varias cifras y los voy a ir guardando en una pila para luego aplicarles los operadores
@@ -219,7 +255,16 @@ if(validacion(expr)){
             }
             i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
                numeros[puntero_numeros++] = acumulador_de_numero;
-        }}
+        }else{if(expr[i]=='+'){
+                i++;
+                acumulador_de_numero = 0;
+                while(isdigit(expr[i]) && expr[i] != '\0') {
+                  acumulador_de_numero = acumulador_de_numero * 10 + (deIntaChar(expr[i]));
+                   i++;
+              }
+               i--; // Tengo que restarle uno porque cuando detecta que no es un digito es porque es el operador asi que no me lo tengo que saltar
+               numeros[puntero_numeros++] =acumulador_de_numero;
+            }}}
 
         operadores[puntero_operadores++]='-';
         }
